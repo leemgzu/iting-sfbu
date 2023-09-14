@@ -87,7 +87,7 @@ function getUserData3(userId) {
     });
   }
   
-
+// testing part 3 
 getUserData3("userId1")
     .then((data) => {
     console.log("User Data:", data);
