@@ -6,6 +6,8 @@ const getDevice = require('./routes/getdevice');
 const iting = require('./routes/iting');
 const live = require('./routes/live');
 const sfbu = require('./routes/sfbu');
+const getip = require('./routes/getip');
+const getUser = require('./routes/getuser')
 
 
 const port = 8080
@@ -25,12 +27,9 @@ app.use('/', getDevice);
 app.use('/', iting);
 app.use('/', live);
 app.use('/', sfbu);
+app.use('/', getip);
+app.use('/', getUser);
 
-
-app.get('/get-ip', (req, res) => {
-  const userIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  res.send({userIp});
-});
 
 server.listen(port, () => {
     console.log('HTTPS is running on port ' + port + '')
