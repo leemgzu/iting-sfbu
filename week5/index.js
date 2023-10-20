@@ -23,8 +23,8 @@ const app = express();
 const server = https.createServer(httpsOptions,app);  
 
 app.use(express.json());
-app.use('/', startUp);
-app.use('/', getLocation);
+app.use('/start', startUp);
+app.use('/get', getLocation);
 
 app.get('/get-device', (req, res) => {
   const whatDeviceIsThis = req.header('User-Agent'); //User Agent header 
