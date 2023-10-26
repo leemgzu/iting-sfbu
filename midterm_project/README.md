@@ -28,7 +28,7 @@ Before running this application, make sure you have the following:
 4. Start the application by running:
 
    ```
-   npm start
+   node index.js
    ```
 
 ## Usage
