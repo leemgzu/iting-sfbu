@@ -7,18 +7,22 @@ import {getTrackingNumber, getTrackingInfo} from "./route/getTracking.js"
 
 const app = express();
 const port = 8080;
-
+// create https key and cert
 const httpsOptions = {
     key: fs.readFileSync('./key.pem'),
     cert: fs.readFileSync('./cert.pem')
 }
+// for api key in .env
 dotenv.config();
+
+// create server with httpsption and app
 
 const server = https.createServer(httpsOptions,app);  
 // const logger = getLoggerInstance();
 
 app.use(express.json());
 
+// app post to process data from postman to get ordernumber from customer
 app.post('/tracking_detail', async (req, res) => {
     const orderNumber = req.body.orderNumber;
     if (orderNumber != null) {
@@ -37,7 +41,7 @@ app.post('/tracking_detail', async (req, res) => {
         }
     }
     else {
-        res.status(400).send("Order number not found!");
+        res.status(400).send("Order number is invalid!");
     }
 });
 

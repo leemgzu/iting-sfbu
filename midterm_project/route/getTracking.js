@@ -2,11 +2,14 @@ import axios from "axios";
 import lodash from "lodash";
 import {info} from "../testData.js";
 
+// getTrackingNumber takes orderNumber and find the matched 
+// orderNumber in testData.js and return its trackingnumber
 export const getTrackingNumber = (orderNumber)=> {
 
     const order = info.find((order) => 
         order.orderNumber === orderNumber
     );
+    // if found, return trackingNumber, else return undefined
     return order?.trackingNumer;
 };
 
