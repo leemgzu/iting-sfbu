@@ -10,6 +10,7 @@ function App() {
   // state for text area
   const [recipes, setRecipes] = react.useState([]);
   const [newRecipe, setNewRecipe]=react.useState("");
+  const [newTitle, setNewTitle] =react.useState("");
   react.useEffect(() => {
     const theFunction = async () => {
       const response = await axios.get('/load_recipe');
@@ -28,36 +29,58 @@ function App() {
         {recipes.map((recipe) => {
           return (
             <div className="recipe-box">
-              <h2>{recipe}</h2>
+              <h2>{recipe.title}</h2>
               
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed suscipit euismod nisl, vel posuere est. Proin nec dui vel dolor venenatis tincidunt.</p>
+              <p>{recipe.ingredients}</p>
             </div>
           )
         })}
         <div className="add-post">
           <h2>Create New Post:</h2>
-          <Form.Control 
-            as="textarea" 
-            aria-label="With textarea" 
-            size='large' 
-            rows={10} 
-            cols={80}
-            value={newRecipe}
-            placeholder='Type here!'
-            // onChange take a callback function to process the typed value
-            onChange={(event) => {
-              setNewRecipe(event.target.value);
-            }}
+          <div>
+            <Form.Control 
+              type="text" 
+              placeholder="Title" 
+              rows={1}
+              cols={80}
+              value={newTitle}
+              onChange={(event) => {
+                setNewTitle(event.target.value);
+              }}
             />
-          <Button 
-            as="input" 
-            type="submit" 
-            value="Submit" 
-            onClick={async ()=>{
-              const response = await axios.post('/add_recipe', {newRecipe})
-              setRecipes(response.data);
-            }}
+          </div>
+          <div>
+            <Form.Control 
+              as="textarea" 
+              aria-label="With textarea" 
+              size='large' 
+              rows={10} 
+              cols={80}
+              value={newRecipe}
+              placeholder='Type here!'
+              // onChange take a callback function to process the typed value
+              onChange={(event) => {
+                setNewRecipe(event.target.value);
+              }}
             />
+          </div>
+          <div>
+            <Button 
+              as="input" 
+              type="submit" 
+              value="Submit" 
+              onClick={async ()=>{
+                if (newTitle === "" || newRecipe === "") {
+                  return;
+                }
+                const response = await axios.post('/add_recipe', {newRecipe, newTitle})
+                setRecipes(response.data);
+                setNewTitle("");
+                setNewRecipe("");                
+              }}
+            />
+          </div>
+          
         </div>
       </div>
 
